@@ -12,8 +12,11 @@ import monospace.settings as settings
 
 stripe.api_key = settings.STRIPE_SECRET
 
+TODAY = datetime.date.today()
+YEARS = range(TODAY.year, TODAY.year + 36)
+
 def soon():
-  soon = datetime.date.today() + datetime.timedelta(days=30)
+  soon = TODAY + datetime.timedelta(days=30)
   return {'month': soon.month, 'year': soon.year}
 
 def home(request):
@@ -94,7 +97,7 @@ def register(request):
       'publishable': settings.STRIPE_PUBLISHABLE,
       'soon': soon(),
       'user': user,
-      'years': range(2011, 2036),
+      'years': YEARS,
     },
     context_instance=RequestContext(request)
   )
@@ -128,7 +131,7 @@ def edit(request):
       'publishable': settings.STRIPE_PUBLISHABLE,
       'soon': soon(),
       'months': range(1, 13),
-      'years': range(2011, 2036)
+      'years': YEARS,
     },
     context_instance=RequestContext(request)
   )
